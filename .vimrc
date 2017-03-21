@@ -22,19 +22,32 @@ let g:mapleader=','
 
 " show line numbers
 set number
+set tw=79 " text width used by gd
+set nowrap
+set fo-=t " don't automatically wrap when typing
 
 " convert tabs into spaces
 set expandtab
 
 " one tab= 2 spaces
-set tabstop=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 " highlight search text
 set hlsearch
 
 " enable incremental search
 set incsearch
+
+set ignorecase
+set smartcase
+
+" syntax highlighting
+filetype off "????
+filetype plugin indent on
 syntax on
+
 
 set clipboard=unnamed  " fix clipboard
 set mouse=a  " fix mouse
@@ -64,6 +77,8 @@ colorscheme lucius
 
 " turn off swap file, coz it's annoying
 set noswapfile
+set nobackup
+set nowritebackup
 
 " map ,s to easy motion plugin
 map <Leader> <Plug>(easymotion-prefix)
@@ -87,6 +102,14 @@ function! WinMove(key)
         endif
 endfunction
 
+
+" move between tabs with leader n,m
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
+
+" keep selection during indentation (so we can do it multiple times)
+vnoremap < <gv
+vnoremap > >gv
  
 " Ctrl-S is a common command to terminals to stop updating, it was a way to slow the output so you could read it on terminals
 " that didn't have a scrollback buffer. First find out if you can configure your xterm to pass Ctrl-S through to the application.
@@ -95,3 +118,12 @@ endfunction
 noremap <silent> <C-S>          :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
+
+
+" wrap paragraphs by pressing Q
+vmap Q gq
+nmap Q gqap
+
+
+set history=700
+set undolevels=700
