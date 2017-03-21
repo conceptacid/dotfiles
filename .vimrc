@@ -87,11 +87,7 @@ function! WinMove(key)
         endif
 endfunction
 
- 51
-down vote
-accepted
-	
-
+ 
 " Ctrl-S is a common command to terminals to stop updating, it was a way to slow the output so you could read it on terminals
 " that didn't have a scrollback buffer. First find out if you can configure your xterm to pass Ctrl-S through to the application.
 " Then these map commands will work:
