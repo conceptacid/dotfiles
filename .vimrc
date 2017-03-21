@@ -62,8 +62,13 @@ set t_Co=256
 "colorscheme gruvbox
 colorscheme lucius
 
+" turn off swap file, coz it's annoying
 set noswapfile
+
+" map ,s to easy motion plugin
 map <Leader> <Plug>(easymotion-prefix)
+
+" map ctrl-movement keys to create/navigate splits
 map <silent> <C-h> :call WinMove('h')<CR>
 map <silent> <C-j> :call WinMove('j')<CR>
 map <silent> <C-k> :call WinMove('k')<CR>
@@ -81,3 +86,16 @@ function! WinMove(key)
                 exec "wincmd ".a:key
         endif
 endfunction
+
+ 51
+down vote
+accepted
+	
+
+" Ctrl-S is a common command to terminals to stop updating, it was a way to slow the output so you could read it on terminals
+" that didn't have a scrollback buffer. First find out if you can configure your xterm to pass Ctrl-S through to the application.
+" Then these map commands will work:
+
+noremap <silent> <C-S>          :update<CR>
+vnoremap <silent> <C-S>         <C-C>:update<CR>
+inoremap <silent> <C-S>         <C-O>:update<CR>
