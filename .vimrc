@@ -105,6 +105,9 @@ endfunction
 " TODO: resize panes with Ctr+Shift+hjkl
 " TODO: enable mouse + right-click + copy
 " TODO: need an auto-save plugin
+" TODO: find definitions that are not invluded and suggest to add includes (like Alt+Enter) in CLion
+" TODO: add a shortcut to open the current file in NerdTree (or go through files of open panes back and forth)
+" TODO: missing feature: namespace aware intellisense
 
 
 " move between tabs with leader n,m
