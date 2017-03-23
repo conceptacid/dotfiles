@@ -104,6 +104,7 @@ endfunction
 
 " TODO: resize panes with Ctr+Shift+hjkl
 " TODO: enable mouse + right-click + copy
+" TODO: need an auto-save plugin
 
 
 " move between tabs with leader n,m
