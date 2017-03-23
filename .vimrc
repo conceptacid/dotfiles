@@ -102,6 +102,8 @@ function! WinMove(key)
         endif
 endfunction
 
+" TODO: resize panes with Ctr+Shift+hjkl
+
 
 " move between tabs with leader n,m
 map <Leader>n <esc>:tabprevious<CR>
