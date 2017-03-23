@@ -103,6 +103,7 @@ function! WinMove(key)
 endfunction
 
 " TODO: resize panes with Ctr+Shift+hjkl
+" TODO: enable mouse + right-click + copy
 
 
 " move between tabs with leader n,m
