@@ -15,6 +15,12 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'VAlloric/YouCompleteMe'
 Plug 'easymotion/vim-easymotion'
+Plug 'pangloss/vim-javascript'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Raimondi/delimitMate'
+Plug 'alvan/vim-closetag'
+" xml edit plugin doesn't work :(
+" Plug 'sukima/xmledit'
 " Initialize plugin system
 call plug#end()
 
@@ -67,13 +73,13 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
 " g:ycm_extra_conf_globlist = [ '/home/mint64/workspace/diosmaster/.ycm_extra_conf_globlist.py' ]
-set background=light
+set background=dark
 set t_Co=256
 
 "colorscheme solarized
 "colorscheme butter
-"colorscheme gruvbox
-colorscheme lucius
+colorscheme gruvbox
+" colorscheme lucius
 
 " turn off swap file, coz it's annoying
 set noswapfile
@@ -102,13 +108,6 @@ function! WinMove(key)
         endif
 endfunction
 
-" TODO: resize panes with Ctr+Shift+hjkl
-" TODO: enable mouse + right-click + copy
-" TODO: need an auto-save plugin
-" TODO: find definitions that are not invluded and suggest to add includes (like Alt+Enter) in CLion
-" TODO: add a shortcut to open the current file in NerdTree (or go through files of open panes back and forth)
-" TODO: missing feature: namespace aware intellisense
-
 
 " move between tabs with leader n,m
 map <Leader>n <esc>:tabprevious<CR>
@@ -134,3 +133,9 @@ nmap Q gqap
 
 set history=700
 set undolevels=700
+
+" scroll down before cursor reaches the last line
+set scrolloff=5
+
+" use alvan/vim-closetag plugin on the following file types
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
