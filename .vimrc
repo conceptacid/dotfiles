@@ -10,12 +10,12 @@ call plug#begin('~/.vim/plugged')
 "Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'brhs/butter'
 " On-demand loading
 Plug 'scrooloose/nerdtree'          ", { 'on':  'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs'      " nerdtree-tabs is a lot better than regular nerd tree
-Plug 'VAlloric/YouCompleteMe'
+"Plug 'VAlloric/YouCompleteMe'
 Plug 'easymotion/vim-easymotion'
 Plug 'pangloss/vim-javascript'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -23,6 +23,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'alvan/vim-closetag'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " xml edit plugin doesn't work :(
 " Plug 'sukima/xmledit'
 " Initialize plugin system
@@ -73,24 +75,29 @@ set bs=2     " fix backspace
 vnoremap <C-c> "*y
 
 " ==============================================================================================
-" NerdTree
+" NerdTree Ctrl-n to open anywhere, Ctrl-m to find current file
 " ==============================================================================================
 map <C-n> <plug>NERDTreeTabsToggle<CR>
+map <C-m> :NERDTreeFind<CR>
+" ==============================================================================================
+" use Ctr-p to search
+" ==============================================================================================
+map <C-p> :Ag<SPACE>
 " ==============================================================================================
 " Silver Searcher
 " ==============================================================================================
-if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:ctrlp_use_caching = 0
-endif	
+"if executable('ag')
+"	set grepprg=ag\ --nogroup\ --nocolor
+"	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"	let g:ctrlp_use_caching = 0
+"endif	
 
 " bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+"nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " bind \ (back slash_ to grep shortcut
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap \ :Ag<SPACE>
+"command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+"nnoremap \ :Ag<SPACE>
 
 " ===============================================================================================
 " You complete me settings
