@@ -663,6 +663,15 @@ highlight! link elixirAtom rubySymbol
 " Key Mappings " {{{
 nnoremap <leader>vi :tabedit $MYVIMRC<CR>
 
+" toggle last tab
+let g:lasttab = 1
+nmap <Leader><Tab> :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+" circular windows navigation
+nnoremap <Tab>   <c-W>w
+nnoremap <S-Tab> <c-W>W
+
 " Toggle quickfix
 map <silent> <F8> :copen<CR>
 
