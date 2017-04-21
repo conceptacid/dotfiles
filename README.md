@@ -1,8 +1,9 @@
 # dotfiles
 
 ## vim cheatsheet
-<leader>a buffers
-<leader>? recent files 
+\<leader>a buffers
+
+\<leader>? recent files 
 
 ### search
-<leader>/ search using ag
+\<leader>/ search using ag
