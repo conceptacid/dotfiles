@@ -330,6 +330,10 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Languages
 " ====================================================================
+Plug 'ericcurtin/CurtineIncSw.vim'
+" {{{
+map <leader>gh :call CurtineIncSw()<CR>
+" }}}
 Plug 'scrooloose/syntastic'
 " {{{
   let g:syntastic_enable_signs          = 1
