@@ -861,3 +861,10 @@ augroup END
 " }}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
 
+" Save files {{{
+" ====================================================================
+" Save files with Ctrl-s
+nnoremap <c-s> :w<CR>
+inoremap <c-s> <Esc>:w<CR>l
+vnoremap <c-s> <Esc>:w<CR>
+" }}}
