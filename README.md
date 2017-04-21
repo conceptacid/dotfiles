@@ -1,4 +1,8 @@
 # dotfiles
 
-requires SilverSearcher
-https://robots.thoughtbot.com/faster-grepping-in-vim
+## vim cheatsheet
+<leader>a buffers
+<leader>? recent files 
+
+### search
+<leader>/ search using ag
