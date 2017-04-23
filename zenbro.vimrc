@@ -594,6 +594,7 @@ call plug#end() " Plugins initialization finished {{{
 set clipboard=unnamed,unnamedplus
 set number         " show line numbers
 set relativenumber " use relative lines numbering by default
+
 set noswapfile     " disable creating of *.swp files
 set hidden         " hide buffers instead of closing
 set lazyredraw     " speed up on large files
@@ -625,6 +626,22 @@ set showcmd      " always show current command
 set nowrap        " disable wrap for long lines
 set textwidth=0   " disable auto break long lines
 " }}}
+
+" Line numbers
+" =====================================================================
+" {{{
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap gn :call NumberToggle()<cr>
+" }}}
+
+
 " Indentation {{{
 " ====================================================================
 set expandtab     " replace <Tab with spaces
@@ -677,9 +694,6 @@ nnoremap <S-Tab> <c-W>W
 
 " Toggle quickfix
 map <silent> <F8> :copen<CR>
-
-" Quick way to save file
-nnoremap <leader>w :w<CR>
 
 " Y behave like D or C
 nnoremap Y y$
@@ -800,7 +814,7 @@ nnoremap <Leader>j<Enter> :rightbelow new<CR>:terminal<CR>
 " Open tig
 nnoremap <Leader>gg :tabnew<CR>:terminal tig<CR>
 
-tnoremap <F1> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
 
 function! TerminalInSplit(args)
@@ -870,4 +884,6 @@ augroup END
 nnoremap <c-s> :w<CR>
 inoremap <c-s> <Esc>:w<CR>l
 vnoremap <c-s> <Esc>:w<CR>
+" Quick way to save file
+nnoremap <leader>w :w<CR>
 " }}}
