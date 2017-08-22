@@ -231,7 +231,7 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-  nnoremap <silent> <leader>. :AgIn 
+  nnoremap <silent> <leader>. :AgIn
 
   nnoremap <silent> K :call SearchWordWithAg()<CR>
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
@@ -331,7 +331,8 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 " Languages
 " ====================================================================
 Plug 'derekwyatt/vim-fswitch'
-" map <leader>gh :call CurtineIncSw()<CR>
+" {{{
+  nnoremap <leader>gh :FSHere<CR>
 " }}}
 Plug 'scrooloose/syntastic'
 " {{{
@@ -559,7 +560,7 @@ Plug 'tyru/open-browser.vim'
 " }}}
 Plug 'Shougo/junkfile.vim'
 " {{{
-  nnoremap <leader>jo :JunkfileOpen 
+  nnoremap <leader>jo :JunkfileOpen
   let g:junkfile#directory = $HOME . '/.nvim/cache/junkfile'
 " }}}
 Plug 'junegunn/vim-peekaboo'
@@ -825,8 +826,11 @@ nnoremap <Leader>j<Enter> :rightbelow new<CR>:terminal<CR>
 " Open tig
 nnoremap <Leader>gg :tabnew<CR>:terminal tig<CR>
 
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
+" exits terminal by pressing esc (this is bad idea because this also works in
+" FZF window, thus, after pressing ESC the FZF window is not closed
+  tnoremap <Esc> <C-c> 
+  " <C-\><C-n>
+" tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
 
 function! TerminalInSplit(args)
   botright split
@@ -897,4 +901,8 @@ inoremap <c-s> <Esc>:w<CR>l
 vnoremap <c-s> <Esc>:w<CR>
 " Quick way to save file
 nnoremap <leader>w :w<CR>
+" Jump to the beginning of the line with q
+nnoremap q 0wi
+" Reload the buffer on reload command
+command Reload edit!
 " }}}
