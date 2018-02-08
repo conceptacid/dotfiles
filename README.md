@@ -133,9 +133,16 @@ Add /usr/local/go/bin to the PATH environment variable. You can do this by addin
 export PATH=$PATH:/usr/local/go/bin
 ```
 
+
 # Vim cheatsheet (current configuration)
-# Navigation
-| Navigation   | Command |  Description|
+## Editing
+
+| Key   |  Description |
+| ----------|---------------------|
+|q         | insert in the beginning of the line (opposite of A) |
+
+## Navigation
+| Key   | Command Name |  Description |
 | ----------------  | ----------------------- |------------------------------|
 |\<leader>a         |buffers | fzf on buffer names |
 |\<leader>A         |windows | fzf on window names |
@@ -165,6 +172,7 @@ export PATH=$PATH:/usr/local/go/bin
 | gl                | toggle limelight (hightlights current paragraph) |
 | gn                | toggle line numbers between absolute and relative |
 
+## Misc
 | Misc | |
 | --------------- | ------------------- |
 |\<leader>se      | edit unisnips templates   |
