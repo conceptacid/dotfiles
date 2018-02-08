@@ -135,7 +135,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 ## Vim cheatsheet (current configuration)
 
-| File navigation   | Command |  Description|
+| Navigation   | Command |  Description|
 | ----------------  | ----------------------- |------------------------------|
 |\<leader>a         |buffers | fzf on buffer names |
 |\<leader>A         |windows | fzf on window names |
@@ -146,8 +146,15 @@ export PATH=$PATH:/usr/local/go/bin
 |\<leader>O         |tags | fzf on all tags |
 |\<leader>\<space>  |files | fzf on file names |
 |\<leader>.         |ag in| search in ... using ag |
+|K                  |search word| search all contents for the word under cursor or block in visual mode|
 |F1                |NerdTree | NerdTree toggle and find |
 |F2                |NerdTree | NerdTree toggle |
+|\<leader>vi         |.vimrc | opens init.vim |
+
+| Tabs    |  Description|
+| ----------------  | --------------------|
+|\<leader><TAB> |  toggles between two last tabs |
+|\<leader>1..9 | switches between tabs 1..9 |
 
 
 | Code presentation |  |
