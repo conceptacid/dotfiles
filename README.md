@@ -21,9 +21,9 @@ sudo apt-get install ctags python-pip python3-pip
 sudo apt-get install python2.7-dev python3.4
 ```
 
-Install ctags
+Install ctags, meld
 ```bash
-sudo apt-get install ctags 
+sudo apt-get install ctags meld
 ```
 
 Install clang,
@@ -133,8 +133,8 @@ Add /usr/local/go/bin to the PATH environment variable. You can do this by addin
 export PATH=$PATH:/usr/local/go/bin
 ```
 
-## Vim cheatsheet (current configuration)
-
+# Vim cheatsheet (current configuration)
+# Navigation
 | Navigation   | Command |  Description|
 | ----------------  | ----------------------- |------------------------------|
 |\<leader>a         |buffers | fzf on buffer names |
@@ -150,16 +150,20 @@ export PATH=$PATH:/usr/local/go/bin
 |F1                |NerdTree | NerdTree toggle and find |
 |F2                |NerdTree | NerdTree toggle |
 |\<leader>vi         |.vimrc | opens init.vim |
+|\<leader>gh       | switch between .cpp and .h |
 
+## Tabs
 | Tabs    |  Description|
 | ----------------  | --------------------|
 |\<leader><TAB> |  toggles between two last tabs |
 |\<leader>1..9 | switches between tabs 1..9 |
+|\<leader>t    | open a new tab |     
 
-
+## Code Presentation
 | Code presentation |  |
 | ----------------- | ------------- |
 | gl                | toggle limelight (hightlights current paragraph) |
+| gn                | toggle line numbers between absolute and relative |
 
 | Misc | |
 | --------------- | ------------------- |
