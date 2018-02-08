@@ -135,26 +135,25 @@ export PATH=$PATH:/usr/local/go/bin
 
 ## Vim cheatsheet (current configuration)
 
-| File navigation   | |
-| ----------------  | ----------------------- |
-|\<leader>a         |buffers - fzf on buffer names |
-|\<leader>A         |windows - fzf on windows names |
-|\<leader>/         |search file contents using ag
-|\<leader>?         |recent files - fzf on file names |
-|\<leader>;         |buffer lines - fzf on contents of all open files |
-|\<leader>o         |buffer tags - fzf on tags of all open files |
-|\<leader>O         |tags - fzf on all tags |
-|\<leader>\<space>  |files - fzf on file names |
-|\<leader>?         |history - fzf in history|
-|\<leader>.         |search in ...|
-|F1                |NerdTree toggle and find |
-|F2                |NerdTree toggle |
+| File navigation   | Command |  Description|
+| ----------------  | ----------------------- |------------------------------|
+|\<leader>a         |buffers | fzf on buffer names |
+|\<leader>A         |windows | fzf on window names |
+|\<leader>/         |ag | search file contents using ag
+|\<leader>?         |recent files | fzf on names of recently opened files |
+|\<leader>;         |buffer lines | fzf on contents of all open files |
+|\<leader>o         |buffer tags | fzf on tags of all open files |
+|\<leader>O         |tags | fzf on all tags |
+|\<leader>\<space>  |files | fzf on file names |
+|\<leader>.         |ag in| search in ... using ag |
+|F1                |NerdTree | NerdTree toggle and find |
+|F2                |NerdTree | NerdTree toggle |
 
 
-| code presentation |  |
+| Code presentation |  |
 | ----------------- | ------------- |
 | gl                | toggle limelight (hightlights current paragraph) |
 
-| misc | |
+| Misc | |
 | --------------- | ------------------- |
 |\<leader>se      | edit unisnips templates   |
