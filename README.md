@@ -5,7 +5,7 @@ https://github.com/zenbro/dotfiles
 Note: this instruction is intended for Ubuntu 14.04 gnome, for newer Ubuntu versions some steps may look different
 
 If you are on a fresh system, you may want to do these first steps:
-1) Set up window switch on alt-tab, terminal launch opens new terminal window
+1) Set up window switch on alt-tab, terminal launch opens new terminal window \*TODO\*
 2) Update and upgrade if necessary and install curl, git and build-essential
 
 ```bash
@@ -92,7 +92,7 @@ sudo pip2 install --upgrade neovim
 sudo pip3 install --upgrade neovim
 ```
 
-Install vim plug
+Install vim plug \*TODO: the .nvim config file should auto load vim plug on first start - check if this really works\*
 ```bash
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
