@@ -153,7 +153,7 @@ export PATH=$PATH:/usr/local/go/bin
 |\<leader>O         |tags | fzf on all tags |
 |\<leader>\<space>  |files | fzf on file names |
 |\<leader>.         |ag in| search in ... using ag |
-|K                  |search word| search all contents for the word under cursor or block in visual mode| (use SHIFT-? for toggling preview)
+|K                  |search word| search all contents for the word under cursor or block in visual mode (use SHIFT-? for toggling preview) |
 |F1                |NerdTree | NerdTree toggle and find |
 |F2                |NerdTree | NerdTree toggle |
 |\<leader>vi         |.vimrc | opens init.vim |
