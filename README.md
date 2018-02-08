@@ -127,31 +127,32 @@ sudo apt-get update
 sudo apt-get install golang-go
 ```
 
-Add /usr/local/go/bin to the PATH environment variable. You can do this by adding this line to your /etc/profile
-(for a system-wide installation) or $HOME/.profile:
+Add /usr/local/go/bin to the PATH environment variable. You can do this by adding this line to your `/etc/profile`
+(for a system-wide installation) or `$HOME/.profile`:
 ```bash
 export PATH=$PATH:/usr/local/go/bin
 ```
 
 ## Vim cheatsheet (current configuration)
 
-File navigation   |
------------------------------------------
-\<leader>a        |buffers - fzf on buffer names
-\<leader>?        |recent files - fzf on file names
-<leader><space>   |files - fzf on file names
-F1                |NerdTree toggle and find
-F2                |NerdTree toggle
+| File navigation   | |
+| ----------------  | ----------------------- |
+|\<leader>a         |buffers - fzf on buffer names |
+|\<leader>A         |windows - fzf on windows names |
+|\<leader>/         |search file contents using ag
+|\<leader>?         |recent files - fzf on file names |
+|\<leader>;         |buffer lines - fzf on contents of all open files |
+|\<leader>o         |buffer tags - fzf on tags of all open files |
+|\<leader>O         |tags - fzf on all tags |
+|\<leader><space>   |files - fzf on file names |
+|F1                |NerdTree toggle and find |
+|F2                |NerdTree toggle |
 
-Silversearcher  | 
------------------------------------------
 
+| code presentation | 
+| ----------------- | ------------- |
+| gl                | toggle limelight (hightlights current paragraph) |
 
-### search
-\<leader>/      search file contents using ag
-
-### code 
-gl              toggle limelight (hightlights current paragraph)
-
-### misc
-<leader>se      edit unisnips
+| misc |
+| --------------- | ------------------- |
+|\<leader>se      | edit unisnips templates   |
