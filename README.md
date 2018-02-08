@@ -6,6 +6,7 @@ Note: this instruction is intended for Ubuntu 14.04 gnome, for newer Ubuntu vers
 
 If you are on a fresh system, you may want to do these first steps:
 1) Set up window switch on alt-tab, terminal launch opens new terminal window **\*TODO\***
+2) Switch off linux hotkeys for F1-F10 and Ctrl+Left, Ctrl+Right, because we will need to customize them **\*TODO\***
 2) Update and upgrade if necessary and install curl, git and build-essential
 
 ```bash
@@ -134,15 +135,20 @@ export PATH=$PATH:/usr/local/go/bin
 
 ## Vim cheatsheet (current configuration)
 
-### navigation
-\<leader>a      buffers
-F1              NerdTree toggle and find
-F2              NerdTree toggle
+File navigation   |
+-----------------------------------------
+\<leader>a        |buffers - fzf on buffer names
+\<leader>?        |recent files - fzf on file names
+<leader><space>   |files - fzf on file names
+F1                |NerdTree toggle and find
+F2                |NerdTree toggle
 
-\<leader>?      recent files 
+Silversearcher  | 
+-----------------------------------------
+
 
 ### search
-\<leader>/      search using ag
+\<leader>/      search file contents using ag
 
 ### code 
 gl              toggle limelight (hightlights current paragraph)
