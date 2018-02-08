@@ -162,7 +162,7 @@ export PATH=$PATH:/usr/local/go/bin
 ## Tabs
 | Tabs    |  Description|
 | ----------------  | --------------------|
-|\<leader><TAB> |  toggles between two last tabs |
+|\<leader>\<TAB> |  toggles between two last tabs |
 |\<leader>1..9 | switches between tabs 1..9 |
 |\<leader>t    | open a new tab |     
 
