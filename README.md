@@ -94,7 +94,8 @@ sudo pip3 install --upgrade neovim
 
 Install vim plug
 ```bash
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 Clone the dot files (this repository) and copy them to the appropriate locations
