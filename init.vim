@@ -330,6 +330,10 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Languages
 " ====================================================================
+Plug 'derekwyatt/vim-fswitch'
+" {{{
+  nnoremap <leader>gh :FSHere<CR>
+" }}}
 Plug 'scrooloose/syntastic'
 " {{{
   let g:syntastic_enable_signs          = 1
@@ -463,7 +467,7 @@ Plug 'airblade/vim-gitgutter'
   nnoremap cog :GitGutterToggle<CR>
   nnoremap <Leader>gt :GitGutterAll<CR>
 " }}}
-Plug 'esneider/YUNOcommit.vim'
+
 
 " Utility
 " ====================================================================
@@ -622,6 +626,22 @@ set showcmd      " always show current command
 set nowrap        " disable wrap for long lines
 set textwidth=0   " disable auto break long lines
 " }}}
+
+" Line numbers
+" =====================================================================
+" {{{
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap gn :call NumberToggle()<cr>
+" }}}
+
+
 " Indentation {{{
 " ====================================================================
 set expandtab     " replace <Tab with spaces
@@ -671,12 +691,11 @@ au TabLeave * let g:lasttab = tabpagenr()
 " circular windows navigation
 nnoremap <Tab>   <c-W>w
 nnoremap <S-Tab> <c-W>W
-
+nnoremap <leader>t :tabnew<CR>
 " Toggle quickfix
 map <silent> <F8> :copen<CR>
 
-" Quick way to save file
-nnoremap <leader>w :w<CR>
+
 
 " Y behave like D or C
 nnoremap Y y$
@@ -744,6 +763,18 @@ function! JumpOrOpenNewSplit(key, cmd, fzf) " {{{
     endif
   endif
 endfunction " }}}
+
+" windows navigation with Alt (works also in terminal mode!)
+:tnoremap <A-h> <C-\><C-n><C-w>h
+:tnoremap <A-j> <C-\><C-n><C-w>j
+:tnoremap <A-k> <C-\><C-n><C-w>k
+:tnoremap <A-l> <C-\><C-n><C-w>l
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
+
+
 nnoremap <silent> <Leader>hh :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 0)<CR>
 nnoremap <silent> <Leader>ll :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 0)<CR>
 nnoremap <silent> <Leader>kk :call JumpOrOpenNewSplit('k', ':leftabove split', 0)<CR>
@@ -799,6 +830,11 @@ nnoremap <Leader>gg :tabnew<CR>:terminal tig<CR>
 
 tnoremap <F1> <C-\><C-n>
 tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
+" exits terminal by pressing esc (this is bad idea because this also works in
+" FZF window, thus, after pressing ESC the FZF window is not closed
+  tnoremap <Esc> <C-c> 
+  " <C-\><C-n>
+" tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
 
 function! TerminalInSplit(args)
   botright split
@@ -866,3 +902,18 @@ imap <C-j> <C-O>j
 imap <C-k> <C-O>k
 inoremap <C-l> <C-O>l
 let g:ycm_global_ycm_extra_conf = '~/ycm_extra_conf.py'
+
+" Jump to the beginning of the line with q
+nnoremap q 0wi
+" Reload the buffer on reload command
+command Reload edit!
+
+" Save files {{{
+" ====================================================================
+" Save files with Ctrl-s
+nnoremap <c-s> :w<CR>
+inoremap <c-s> <Esc>:w<CR>l
+vnoremap <c-s> <Esc>:w<CR>
+" Quick way to save file
+nnoremap <leader>w :w<CR>
+" }}}
