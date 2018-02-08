@@ -2,6 +2,7 @@ The vimrc file is a slightly modified version of the one from here:
 https://github.com/zenbro/dotfiles
 
 # Installation of neovim + some other useful tools
+Note: this instruction is intended for Ubuntu 14.04 gnome, for newer Ubuntu versions some steps may look different
 
 If you are on a fresh system, you may want to do these first steps:
 1) Set up window switch on alt-tab, terminal launch opens new terminal window
