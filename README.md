@@ -159,7 +159,7 @@ export PATH=$PATH:/usr/local/go/bin
 |\<leader>vi         |.vimrc | opens init.vim |
 |\<leader>gh       | switch between .cpp and .h |
 
-Tip: in search result list, when using fzf, press Alt-A to select all, Alt-D to deselect all. Selected items will be added to the quickfix list (later you can navigate it with Alt-n Alt-N for project-wide search and replace).
+Tip: in search result list, when using fzf, press Alt-A to select all, Alt-D to deselect all. Also it's possible to select individual items with TAB and \<SHiFT>-\<TAB>. Selected items will be added to the quickfix list (later you can navigate it with Alt-n Alt-N for project-wide search and replace).
 
 ## Tabs
 | Tabs    |  Description|
