@@ -159,6 +159,8 @@ export PATH=$PATH:/usr/local/go/bin
 |\<leader>vi         |.vimrc | opens init.vim |
 |\<leader>gh       | switch between .cpp and .h |
 
+Tip: in search result list, when using fzf, press Alt-A to copy the list to quickfix list (later you can navigate it with Alt-n Alt-N for project-wide search and replace)
+
 ## Tabs
 | Tabs    |  Description|
 | ----------------  | --------------------|
@@ -175,7 +177,14 @@ export PATH=$PATH:/usr/local/go/bin
 ## Misc
 | Misc | |
 | --------------- | ------------------- |
+|\<A-n>           | next item from quickfix |
+|\<A-N>           | previous item from quickfix |
 |\<leader>se      | edit unisnips templates   |
+
+## Insert mode commands
+| Key | Action |
+| ---- | ------ |
+|\<Ctrl-O>\<XXX> | execute \<XXX> in normal mode |
 
 ## Known Issues:
 1) Yanking from visual mode doesn't copy to the system clipboard
