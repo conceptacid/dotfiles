@@ -568,6 +568,7 @@ Plug 'junegunn/vim-peekaboo'
 " {{{
   let g:peekaboo_delay = 400
 " }}}
+Plug 'mileszs/ack.vim'
 Plug 'mbbill/undotree'
 " {{{
   set undofile
@@ -600,7 +601,7 @@ set hidden         " hide buffers instead of closing
 set lazyredraw     " speed up on large files
 set mouse=         " disable mouse
 
-set scrolloff=999       " always keep cursor at the middle of screen
+set scrolloff=10       " always keep cursor at the middle of screen
 set virtualedit=onemore " allow the cursor to move just past the end of the line
 set undolevels=5000     " set maximum undo levels
 
@@ -774,7 +775,6 @@ endfunction " }}}
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
 
-
 nnoremap <silent> <Leader>hh :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 0)<CR>
 nnoremap <silent> <Leader>ll :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 0)<CR>
 nnoremap <silent> <Leader>kk :call JumpOrOpenNewSplit('k', ':leftabove split', 0)<CR>
@@ -897,10 +897,10 @@ augroup END
 " }}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
 imap jj <Esc>
-imap <C-h> <C-O>h
-imap <C-j> <C-O>j
-imap <C-k> <C-O>k
-inoremap <C-l> <C-O>l
+imap <A-h> <C-O>h
+imap <A-j> <C-O>j
+imap <A-k> <C-O>k
+imap <A-l> <C-O>l
 let g:ycm_global_ycm_extra_conf = '~/ycm_extra_conf.py'
 
 " Jump to the beginning of the line with q
@@ -955,3 +955,45 @@ command! -bang -nargs=* Rg
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+
+vmap <leader>g :s/<C-R><C-W>//
+map <leader>g :s/<C-R><C-W>//
+
+
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+
+" quickfix commands
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+" toggle quickfix list window
+" nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+nmap <A-q> :call ToggleList("Quickfix List", 'c')<CR>
+" quickfix navigation
+:nnoremap <A-n> :cnext<CR>
+:nnoremap <A-N> :cprev<CR>
+
+
