@@ -153,11 +153,13 @@ export PATH=$PATH:/usr/local/go/bin
 |\<leader>O         |tags | fzf on all tags |
 |\<leader>\<space>  |files | fzf on file names |
 |\<leader>.         |ag in| search in ... using ag |
-|K                  |search word| search all contents for the word under cursor or block in visual mode|
+|K                  |search word| search all contents for the word under cursor or block in visual mode (use SHIFT-? to toggle preview window) |
 |F1                |NerdTree | NerdTree toggle and find |
 |F2                |NerdTree | NerdTree toggle |
 |\<leader>vi         |.vimrc | opens init.vim |
 |\<leader>gh       | switch between .cpp and .h |
+
+Tip: in search result list, when using fzf, press Alt-A to select all, Alt-D to deselect all. Also it's possible to select individual items with TAB and \<SHiFT>-\<TAB>. Selected items will be added to the quickfix list (later you can navigate it with Alt-n Alt-N for project-wide search and replace).
 
 ## Tabs
 | Tabs    |  Description|
@@ -175,4 +177,15 @@ export PATH=$PATH:/usr/local/go/bin
 ## Misc
 | Misc | |
 | --------------- | ------------------- |
+|\<A-n>           | next item from quickfix |
+|\<A-N>           | previous item from quickfix |
 |\<leader>se      | edit unisnips templates   |
+
+## Insert mode commands
+| Key | Action |
+| ---- | ------ |
+|\<Ctrl-O>\<XXX> | execute \<XXX> in normal mode |
+
+## Known Issues:
+1) Yanking from visual mode doesn't copy to the system clipboard
+2) Mouse click doesn't move the cursor there
