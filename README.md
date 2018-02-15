@@ -189,3 +189,11 @@ Tip: in search result list, when using fzf, press Alt-A to select all, Alt-D to 
 ## Known Issues:
 1) Yanking from visual mode doesn't copy to the system clipboard
 2) Mouse click doesn't move the cursor there
+
+## Tips and tricks
+1) create new file in the same directory
+```bash
+:e %:h/filename
+:w
+``` 
+
