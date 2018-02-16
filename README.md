@@ -196,4 +196,4 @@ Tip: in search result list, when using fzf, press Alt-A to select all, Alt-D to 
 :e %:h/filename
 :w
 ``` 
-
+TODO: add moving code block up and down in visual mode
