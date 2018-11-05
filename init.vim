@@ -1,4 +1,5 @@
 " https://github.com/conceptacid/dotfiles/blob/master/init.vim
+
 let g:python_host_prog='/usr/bin/python2'
 let g:mapleader = "\<Space>"
 let g:ycm_server_python_interpreter='/usr/bin/python2'
@@ -13,10 +14,22 @@ call plug#begin('~/.nvim/plugged') " Plugins initialization start {{{
 " }}}
 " Appearance
 " ====================================================================
+Plug 'xolox/vim-colorscheme-switcher'
+Plug 'xolox/vim-misc'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'nanotech/jellybeans.vim'
 " {{{
-  let g:jellybeans_use_term_background_color = 0
+"  let g:jellybeans_use_term_background_color = 0
 " }}}
+Plug 'gmist/vim-palette'
+" {{{
+"  let g:jellybeans_use_term_background_color = 0
+" }}}
+Plug 'fatih/vim-go'
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'vim-scripts/eclipse.vim'
+Plug 'aunsira/macvim-light'
 Plug 'itchyny/lightline.vim'
 " {{{
   let g:lightline = {
@@ -35,9 +48,7 @@ Plug 'itchyny/lightline.vim'
         \   'modified': 'LightLineModified',
         \   'syntastic': 'SyntasticStatuslineFlag',
         \   'filename': 'LightLineFilename'
-        \ },
-        \ 'separator': { 'left': '▓▒░', 'right': '░▒▓' },
-        \ 'subseparator': { 'left': '>', 'right': '' }
+        \ }
         \ }
   function! LightLineModified()
     if &filetype == "help"
@@ -92,48 +103,48 @@ Plug 'itchyny/lightline.vim'
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
   endfunction
 
-  " {{{ Modified jellybeans theme
-  let s:base03    = [ '#151513', 233 ]
-  let s:base02    = [ '#30302c', 236 ]
-  let s:base01    = [ '#4e4e43', 237 ]
-  let s:base00    = [ '#666656', 242 ]
-  let s:base0     = [ '#808070', 244 ]
-  let s:base1     = [ '#949484', 246 ]
-  let s:base2     = [ '#a8a897', 248 ]
-  let s:base3     = [ '#e8e8d3', 253 ]
-  let s:yellow    = [ '#ffb964', 215 ]
-  let s:red       = [ '#cf6a4c', 167 ]
-  let s:magenta   = [ '#f0a0c0', 217 ]
-  let s:blue      = [ '#7697D6', 4   ]
-  let s:orange    = [ '#ffb964', 215 ]
-  let s:green     = [ '#99ad6a', 107 ]
-  let s:white     = [ '#FCFCFC', 15  ]
+"  " {{{ Modified jellybeans theme
+"  let s:base03    = [ '#151513', 233 ]
+"  let s:base02    = [ '#30302c', 236 ]
+"  let s:base01    = [ '#4e4e43', 237 ]
+"  let s:base00    = [ '#666656', 242 ]
+"  let s:base0     = [ '#808070', 244 ]
+"  let s:base1     = [ '#949484', 246 ]
+"  let s:base2     = [ '#a8a897', 248 ]
+"  let s:base3     = [ '#e8e8d3', 253 ]
+"  let s:yellow    = [ '#ffb964', 215 ]
+"  let s:red       = [ '#cf6a4c', 167 ]
+"  let s:magenta   = [ '#f0a0c0', 217 ]
+"  let s:blue      = [ '#7697D6', 4   ]
+"  let s:orange    = [ '#ffb964', 215 ]
+"  let s:green     = [ '#99ad6a', 107 ]
+"  let s:white     = [ '#FCFCFC', 15  ]
 
-  let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}, 'terminal': {}}
-  let s:p.normal.left     = [ [ s:white, s:blue ], [ s:base3, s:base02 ] ]
-  let s:p.normal.right    = [ [ s:base02, s:base1 ], [ s:base3, s:base02 ] ]
-  let s:p.inactive.right  = [ [ s:base02, s:base00 ], [ s:base0, s:base02 ] ]
-  let s:p.inactive.left   = [ [ s:base0, s:base02 ], [ s:base00, s:base02 ] ]
-  let s:p.insert.left     = [ [ s:base02, s:orange ], [ s:base3, s:base01 ] ]
-  let s:p.replace.left    = [ [ s:base02, s:red ], [ s:base3, s:base01 ] ]
-  let s:p.visual.left     = [ [ s:base02, s:magenta ], [ s:base3, s:base01 ] ]
-  let s:p.terminal.left   = [ [ s:base02, s:green ], [ s:base3, s:base01 ] ]
-  let s:p.normal.middle   = [ [ s:base0, s:base03 ] ]
-  let s:p.inactive.middle = [ [ s:base00, s:base02 ] ]
-  let s:p.tabline.left    = [ [ s:base3, s:base02 ] ]
-  let s:p.tabline.tabsel  = [ [ s:white, s:blue ] ]
-  let s:p.tabline.middle  = [ [ s:base01, s:base03 ] ]
-  let s:p.tabline.right   = [ [ s:base03, s:base03 ], [ s:base03, s:base03 ] ]
-  let s:p.normal.error    = [ [ s:red, s:base02 ] ]
-  let s:p.normal.warning  = [ [ s:yellow, s:base01 ] ]
-  " }}}
+"  let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}, 'terminal': {}}
+"  let s:p.normal.left     = [ [ s:white, s:blue ], [ s:base3, s:base02 ] ]
+"  let s:p.normal.right    = [ [ s:base02, s:base1 ], [ s:base3, s:base02 ] ]
+"  let s:p.inactive.right  = [ [ s:base02, s:base00 ], [ s:base0, s:base02 ] ]
+"  let s:p.inactive.left   = [ [ s:base0, s:base02 ], [ s:base00, s:base02 ] ]
+"  let s:p.insert.left     = [ [ s:base02, s:orange ], [ s:base3, s:base01 ] ]
+"  let s:p.replace.left    = [ [ s:base02, s:red ], [ s:base3, s:base01 ] ]
+"  let s:p.visual.left     = [ [ s:base02, s:magenta ], [ s:base3, s:base01 ] ]
+"  let s:p.terminal.left   = [ [ s:base02, s:green ], [ s:base3, s:base01 ] ]
+"  let s:p.normal.middle   = [ [ s:base0, s:base03 ] ]
+"  let s:p.inactive.middle = [ [ s:base00, s:base02 ] ]
+"  let s:p.tabline.left    = [ [ s:base3, s:base02 ] ]
+"  let s:p.tabline.tabsel  = [ [ s:white, s:blue ] ]
+"  let s:p.tabline.middle  = [ [ s:base01, s:base03 ] ]
+"  let s:p.tabline.right   = [ [ s:base03, s:base03 ], [ s:base03, s:base03 ] ]
+"  let s:p.normal.error    = [ [ s:red, s:base02 ] ]
+"  let s:p.normal.warning  = [ [ s:yellow, s:base01 ] ]
+"  " }}}
 " }}}
-Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'nathanaelkane/vim-indent-guides'
 " {{{
-  let g:indent_guides_default_mapping = 0
-  let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_start_level = 2
-  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
+"  let g:indent_guides_default_mapping = 0
+"  let g:indent_guides_enable_on_vim_startup = 1
+"  let g:indent_guides_start_level = 2
+"  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
 Plug 'kshenoy/vim-signature'
 " {{{
@@ -163,12 +174,22 @@ Plug 'kshenoy/vim-signature'
     \ }
 " }}}
 Plug 'tpope/vim-sleuth'
+Plug 'junegunn/seoul256.vim'
+"{{{
+  let g:seoul256_background = 236
+"}}}
+Plug 'junegunn/goyo.vim'
+" {{{
+let g:goyo_width = 120
+let g:goyo_height = 90
+nnoremap zd :Goyo<CR>
+" }}}
 Plug 'junegunn/limelight.vim'
 " {{{
   let g:limelight_default_coefficient = 0.7
   let g:limelight_conceal_ctermfg = 238
-  nmap <silent> gl :Limelight!!<CR>
-  xmap gl <Plug>(Limelight)
+  nmap <silent> zl :Limelight!!<CR>
+  xmap zl <Plug>(Limelight)
 " }}}
 
 " Completion
@@ -226,11 +247,11 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
-  nnoremap <silent> <leader>; :BLines<CR>
+"  nnoremap <silent> <leader>; :BLines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
-  nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+"  nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
   nnoremap <silent> <leader>. :AgIn 
 
   nnoremap <silent> K :call SearchWordWithAg()<CR>
@@ -287,11 +308,14 @@ Plug 'Lokaltog/vim-easymotion'
   let g:EasyMotion_do_mapping = 0
   let g:EasyMotion_smartcase = 1
   let g:EasyMotion_off_screen_search = 0
-  nmap ; <Plug>(easymotion-s2)
+  nmap ; <Plug>(easymotion-s)
+  nmap <leader>; <Plug>(incsearch-easymotion-stay)
 " }}}
-Plug 'rhysd/clever-f.vim'
+" 
+" disable clever-f, we use fuzzy search on f key and easy motion instead
+"Plug 'rhysd/clever-f.vim'
 " {{{
-  let g:clever_f_across_no_line = 1
+"  let g:clever_f_across_no_line = 1
 " }}}
 
 " Text Manipulation
@@ -618,8 +642,9 @@ set diffopt=filler,vertical " default behavior for diff
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
 set wildmode=list:longest,full
 
-set list " show hidden characters
-set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
+" DO NOT ENABLE THESE!!!
+"set list " show hidden characters
+"set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
 
 set laststatus=2 " always show status line
 set showcmd      " always show current command
@@ -639,7 +664,7 @@ function! NumberToggle()
   endif
 endfunc
 
-nnoremap gn :call NumberToggle()<cr>
+nnoremap zn :call NumberToggle()<cr>
 " }}}
 
 
@@ -659,24 +684,35 @@ set gdefault   " when on, the :substitute flag 'g' is default on
 " }}}
 " Colors and highlightings {{{
 " ====================================================================
-colorscheme jellybeans
-let g:lightline#colorscheme#jellybeans_mod#palette = lightline#colorscheme#flatten(s:p)
+colorscheme seoul256
+
+"colorscheme jellybeans
+"let g:lightline#colorscheme#jellybeans_mod#palette = lightline#colorscheme#flatten(s:p)
+"colorscheme solarized8_flat
+
 
 set cursorline     " highlight current line
-set colorcolumn=80 " highlight column
-highlight! ColorColumn ctermbg=233 guibg=#131313
+set colorcolumn=120 " highlight column
 
+
+" jellybeans stuff
+" highlight! ColorColumn ctermbg=233 guibg=#131313
 " Various columns
-highlight! SignColumn ctermbg=233 guibg=#0D0D0D
-highlight! FoldColumn ctermbg=233 guibg=#0D0D0D
+" highlight! SignColumn ctermbg=233 guibg=#0D0D0D
+" highlight! FoldColumn ctermbg=233 guibg=#0D0D0D
 
 " Syntastic
-highlight SyntasticErrorSign guifg=black guibg=#E01600 ctermfg=16 ctermbg=160
-highlight SyntasticErrorLine guibg=#0D0D0D ctermbg=232
-highlight SyntasticWarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
-highlight SyntasticWargningLine guibg=#171717
-highlight SyntasticStyleWarningSign guifg=black guibg=#bcbcbc ctermfg=16 ctermbg=250
-highlight SyntasticStyleErrorSign guifg=black guibg=#ff8700 ctermfg=16 ctermbg=208
+" highlight SyntasticErrorSign guifg=black guibg=#E01600 ctermfg=16 ctermbg=160
+" highlight SyntasticErrorLine guibg=#0D0D0D ctermbg=232
+" highlight SyntasticWarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
+" highlight SyntasticWargningLine guibg=#171717
+" highlight SyntasticStyleWarningSign guifg=black guibg=#bcbcbc ctermfg=16 ctermbg=250
+" highlight SyntasticStyleErrorSign guifg=black guibg=#ff8700 ctermfg=16 ctermbg=208
+
+" Highlight the search text with a bright yellow color
+" set the color of the highlighted text for searching
+hi Search cterm=NONE ctermfg=black ctermbg=yellow 
+hi Cursor cterm=NONE ctermfg=black ctermbg=red
 
 " Language-specific
 highlight! link elixirAtom rubySymbol
@@ -903,10 +939,8 @@ imap <A-k> <C-O>k
 imap <A-l> <C-O>l
 let g:ycm_global_ycm_extra_conf = '~/ycm_extra_conf.py'
 
-" Jump to the beginning of the line with q
-nnoremap q 0wi
 " Reload the buffer on reload command
-command Reload edit!
+command! Reload edit!
 
 " Save files {{{
 " ====================================================================
@@ -995,5 +1029,29 @@ nmap <A-q> :call ToggleList("Quickfix List", 'c')<CR>
 " quickfix navigation
 :nnoremap <A-n> :cnext<CR>
 :nnoremap <A-N> :cprev<CR>
+
+
+nmap / <Plug>(incsearch-forward)
+nmap ? <Plug>(incsearch-backward)
+nmap f <Plug>(incsearch-stay)
+
+
+" always use n to search forward and N to search backward, regardless of / or
+" ?
+noremap <expr> n 'Nn'[v:searchforward]
+noremap <expr> N 'nN'[v:searchforward]
+noremap f :BLines<CR>
+noremap <C-f> :execute 'Ag ' . input('Ag/')<CR>
+
+
+
+function! Guid()
+python << EOF
+import uuid, vim
+vim.command("normal i" + str(uuid.uuid4()) )
+EOF
+endfunction
+
+"imap <C-x><C-g> :call Guid()<CR>
 
 
