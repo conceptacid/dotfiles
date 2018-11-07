@@ -176,7 +176,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'tpope/vim-sleuth'
 Plug 'junegunn/seoul256.vim'
 "{{{
-  let g:seoul256_background = 236
+  let g:seoul256_background = 237
 "}}}
 Plug 'junegunn/goyo.vim'
 " {{{
@@ -1054,4 +1054,7 @@ endfunction
 
 "imap <C-x><C-g> :call Guid()<CR>
 
-
+" jumplist navigation with gn(next, similar to C-o), gp(prev, similar to C-i)
+nnoremap <C-i> <C-i>
+nnoremap gp <C-o>
+nnoremap gn <C-i>
