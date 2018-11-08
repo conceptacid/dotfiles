@@ -1,189 +1,84 @@
 " https://github.com/conceptacid/dotfiles/blob/master/init.vim
+" Vim 8 defaults
+unlet! skip_defaults_vim
+silent! source $VIMRUNTIME/defaults.vim
 
+let s:darwin = has('mac')
 let g:python_host_prog='/usr/bin/python2'
 let g:mapleader = "\<Space>"
 let g:ycm_server_python_interpreter='/usr/bin/python2'
-" Autoinstall vim-plug {{{
+
+" ===================================================================
+" Autoinstall vim-plug
+" ===================================================================
 if empty(glob('~/.nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
-" }}}
 call plug#begin('~/.nvim/plugged') " Plugins initialization start {{{
-" }}}
+
+if s:darwin
+  let g:plug_url_format = 'git@github.com:%s.git'
+else
+  let $GIT_SSL_NO_VERIFY = 'true'
+endif
+
+" ====================================================================
 " Appearance
 " ====================================================================
+
+" disabled: doesn't work well with incremental search
+" auto-clear search on cursor move, impoved star-search
+" Plug 'junegunn/vim-slash'
+
+" switch colorschemes with F8
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
+
+
+" nice information line at the bottom of the screen
+Plug 'itchyny/lightline.vim'
+
+" colorscheme
 Plug 'nanotech/jellybeans.vim'
-" {{{
-"  let g:jellybeans_use_term_background_color = 0
-" }}}
-Plug 'gmist/vim-palette'
-" {{{
-"  let g:jellybeans_use_term_background_color = 0
-" }}}
-Plug 'fatih/vim-go'
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+" huge list of colorschemes (many are quite ugly, therefore disabled)
+" Plug 'gmist/vim-palette'
+
+Plug 'tomasr/molokai'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'morhetz/gruvbox'
+Plug 'yuttie/hydrangea-vim'
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'AlessandroYorba/Despacio'
+Plug 'cocopon/iceberg.vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'nightsense/snow'
+Plug 'nightsense/stellarized'
+Plug 'arcticicestudio/nord-vim'
 Plug 'vim-scripts/eclipse.vim'
 Plug 'aunsira/macvim-light'
-Plug 'itchyny/lightline.vim'
-" {{{
-  let g:lightline = {
-        \ 'colorscheme': 'jellybeans_mod',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'gitgutter', 'filename' ] ],
-        \   'right': [ [ 'percent', 'lineinfo' ],
-        \              [ 'syntastic' ],
-        \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-        \ },
-        \ 'component_function': {
-        \   'fugitive': 'LightLineFugitive',
-        \   'gitgutter': 'LightLineGitGutter',
-        \   'readonly': 'LightLineReadonly',
-        \   'modified': 'LightLineModified',
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \   'filename': 'LightLineFilename'
-        \ }
-        \ }
-  function! LightLineModified()
-    if &filetype == "help"
-      return ""
-    elseif &modified
-      return "+"
-    elseif &modifiable
-      return ""
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineReadonly()
-    if &filetype == "help"
-      return ""
-    elseif &readonly
-      return "RO"
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineFugitive()
-    return exists('*fugitive#head') ? fugitive#head() : ''
-  endfunction
-
-  function! LightLineGitGutter()
-    if ! exists('*GitGutterGetHunkSummary')
-          \ || ! get(g:, 'gitgutter_enabled', 0)
-          \ || winwidth('.') <= 90
-      return ''
-    endif
-    let symbols = [
-          \ g:gitgutter_sign_added,
-          \ g:gitgutter_sign_modified,
-          \ g:gitgutter_sign_removed
-          \ ]
-    let hunks = GitGutterGetHunkSummary()
-    let ret = []
-    for i in [0, 1, 2]
-      if hunks[i] > 0
-        call add(ret, symbols[i] . hunks[i])
-      endif
-    endfor
-    return join(ret, ' ')
-  endfunction
-
-  function! LightLineFilename()
-    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-  endfunction
-
-"  " {{{ Modified jellybeans theme
-"  let s:base03    = [ '#151513', 233 ]
-"  let s:base02    = [ '#30302c', 236 ]
-"  let s:base01    = [ '#4e4e43', 237 ]
-"  let s:base00    = [ '#666656', 242 ]
-"  let s:base0     = [ '#808070', 244 ]
-"  let s:base1     = [ '#949484', 246 ]
-"  let s:base2     = [ '#a8a897', 248 ]
-"  let s:base3     = [ '#e8e8d3', 253 ]
-"  let s:yellow    = [ '#ffb964', 215 ]
-"  let s:red       = [ '#cf6a4c', 167 ]
-"  let s:magenta   = [ '#f0a0c0', 217 ]
-"  let s:blue      = [ '#7697D6', 4   ]
-"  let s:orange    = [ '#ffb964', 215 ]
-"  let s:green     = [ '#99ad6a', 107 ]
-"  let s:white     = [ '#FCFCFC', 15  ]
-
-"  let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}, 'terminal': {}}
-"  let s:p.normal.left     = [ [ s:white, s:blue ], [ s:base3, s:base02 ] ]
-"  let s:p.normal.right    = [ [ s:base02, s:base1 ], [ s:base3, s:base02 ] ]
-"  let s:p.inactive.right  = [ [ s:base02, s:base00 ], [ s:base0, s:base02 ] ]
-"  let s:p.inactive.left   = [ [ s:base0, s:base02 ], [ s:base00, s:base02 ] ]
-"  let s:p.insert.left     = [ [ s:base02, s:orange ], [ s:base3, s:base01 ] ]
-"  let s:p.replace.left    = [ [ s:base02, s:red ], [ s:base3, s:base01 ] ]
-"  let s:p.visual.left     = [ [ s:base02, s:magenta ], [ s:base3, s:base01 ] ]
-"  let s:p.terminal.left   = [ [ s:base02, s:green ], [ s:base3, s:base01 ] ]
-"  let s:p.normal.middle   = [ [ s:base0, s:base03 ] ]
-"  let s:p.inactive.middle = [ [ s:base00, s:base02 ] ]
-"  let s:p.tabline.left    = [ [ s:base3, s:base02 ] ]
-"  let s:p.tabline.tabsel  = [ [ s:white, s:blue ] ]
-"  let s:p.tabline.middle  = [ [ s:base01, s:base03 ] ]
-"  let s:p.tabline.right   = [ [ s:base03, s:base03 ], [ s:base03, s:base03 ] ]
-"  let s:p.normal.error    = [ [ s:red, s:base02 ] ]
-"  let s:p.normal.warning  = [ [ s:yellow, s:base01 ] ]
-"  " }}}
-" }}}
-" Plug 'nathanaelkane/vim-indent-guides'
-" {{{
-"  let g:indent_guides_default_mapping = 0
-"  let g:indent_guides_enable_on_vim_startup = 1
-"  let g:indent_guides_start_level = 2
-"  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
-" }}}
-Plug 'kshenoy/vim-signature'
-" {{{
-  let g:SignatureMarkerTextHL = 'Typedef'
-  let g:SignatureMap = {
-    \ 'Leader'             :  "m",
-    \ 'PlaceNextMark'      :  "m,",
-    \ 'ToggleMarkAtLine'   :  "m.",
-    \ 'PurgeMarksAtLine'   :  "m-",
-    \ 'DeleteMark'         :  "dm",
-    \ 'PurgeMarks'         :  "m<Space>",
-    \ 'PurgeMarkers'       :  "m<BS>",
-    \ 'GotoNextLineAlpha'  :  "",
-    \ 'GotoPrevLineAlpha'  :  "",
-    \ 'GotoNextSpotAlpha'  :  "",
-    \ 'GotoPrevSpotAlpha'  :  "",
-    \ 'GotoNextLineByPos'  :  "]'",
-    \ 'GotoPrevLineByPos'  :  "['",
-    \ 'GotoNextSpotByPos'  :  "]`",
-    \ 'GotoPrevSpotByPos'  :  "[`",
-    \ 'GotoNextMarker'     :  "[+",
-    \ 'GotoPrevMarker'     :  "[-",
-    \ 'GotoNextMarkerAny'  :  "]=",
-    \ 'GotoPrevMarkerAny'  :  "[=",
-    \ 'ListLocalMarks'     :  "m/",
-    \ 'ListLocalMarkers'   :  "m?"
-    \ }
-" }}}
-Plug 'tpope/vim-sleuth'
 Plug 'junegunn/seoul256.vim'
 "{{{
   let g:seoul256_background = 237
 "}}}
+
+" Go support
+Plug 'fatih/vim-go'
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+
+" automatically adjusts shiftwidth and expandtabs
+Plug 'tpope/vim-sleuth'
+
+" distraction-free mode
 Plug 'junegunn/goyo.vim'
 " {{{
 let g:goyo_width = 120
 let g:goyo_height = 90
 nnoremap zd :Goyo<CR>
 " }}}
+
+" paragraph highlight mode
 Plug 'junegunn/limelight.vim'
 " {{{
   let g:limelight_default_coefficient = 0.7
@@ -202,19 +97,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --tern-completer --cl
   let g:ycm_key_invoke_completion = '<c-j>'
   let g:ycm_complete_in_strings = 1
 " }}}
-Plug 'SirVer/ultisnips'
-" {{{
-  nnoremap <leader>se :UltiSnipsEdit<CR>
 
-  let g:UltiSnipsSnippetsDir = '~/.nvim/UltiSnips'
-  let g:UltiSnipsEditSplit = 'horizontal'
-  let g:UltiSnipsListSnippets = '<nop>'
-  let g:UltiSnipsExpandTrigger = '<c-l>'
-  let g:UltiSnipsJumpForwardTrigger = '<c-l>'
-  let g:UltiSnipsJumpBackwardTrigger = '<c-b>'
-  let g:ulti_expand_or_jump_res = 0
-" }}}
-Plug 'honza/vim-snippets'
 
 " File Navigation
 " ====================================================================
@@ -239,6 +122,8 @@ Plug 'scrooloose/nerdtree'
     endif
   endfunction
 " }}}
+
+" Fuzzy Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " {{{
@@ -247,12 +132,13 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
-"  nnoremap <silent> <leader>; :BLines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
-"  nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
   nnoremap <silent> <leader>. :AgIn 
+  noremap f :BLines<CR>
+  noremap <C-f> :execute 'Ag ' . input('Ag/')<CR>
+
 
   nnoremap <silent> K :call SearchWordWithAg()<CR>
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
@@ -284,21 +170,13 @@ Plug 'junegunn/fzf.vim'
   endfunction
   command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 " }}}
+
+
+" most-recently used files and directories
 Plug 'Shougo/neomru.vim'
 " {{{
   let g:neomru#file_mru_path = $HOME . '/.nvim/cache/neomru/file'
   let g:neomru#directory_mru_path = $HOME . '/.nvim/cache/neomru/directory'
-" }}}
-Plug 'zenbro/mirror.vim'
-" {{{
-  nnoremap <leader>mp :MirrorPush<CR>
-  nnoremap <leader>ml :MirrorPull<CR>
-  nnoremap <leader>md :MirrorDiff<CR>
-  nnoremap <leader>me :MirrorEdit<CR>
-  nnoremap <leader>mo :MirrorOpen<CR>
-  nnoremap <leader>ms :MirrorSSH<CR>
-  nnoremap <leader>mi :MirrorInfo<CR>
-  nnoremap <leader>mc :MirrorConfig<CR>
 " }}}
 
 " Text Navigation
@@ -311,37 +189,67 @@ Plug 'Lokaltog/vim-easymotion'
   nmap ; <Plug>(easymotion-s)
   nmap <leader>; <Plug>(incsearch-easymotion-stay)
 " }}}
-" 
+
+" incremental search
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+
 " disable clever-f, we use fuzzy search on f key and easy motion instead
-"Plug 'rhysd/clever-f.vim'
+" Plug 'rhysd/clever-f.vim'
 " {{{
 "  let g:clever_f_across_no_line = 1
 " }}}
 
 " Text Manipulation
 " ====================================================================
+" brackets, quotes, etc..
 Plug 'tpope/vim-surround'
+
+" table alignments, see the doc
 Plug 'junegunn/vim-easy-align'
 " {{{
   let g:easy_align_ignore_comment = 0 " align comments
   vnoremap <silent> <Enter> :EasyAlign<cr>
 " }}}
+
+" comments management
+" gcc - toggle comments, but also see the docs for more keybindings 
+" https://github.com/tomtom/tcomment_vim
 Plug 'tomtom/tcomment_vim'
+
+" delimiters?
 Plug 'Raimondi/delimitMate'
 " {{{
   let delimitMate_expand_cr = 2
   let delimitMate_expand_space = 1 " {|} => { | }
 " }}}
+
+" language-specific switch between single line and multi line operators (e.g.
+" if {} else {}
+" gS - split to a multiple lines,
+" gJ - joins a block to a one-liner
 Plug 'AndrewRadev/splitjoin.vim'
+
+" read also the interview with AndrewRadev: http://howivim.com/2016/andrew-radev/
+" switches true to false, dots to arrows, etc...
+" to activate, use :Switch command
 Plug 'AndrewRadev/switch.vim'
 " {{{
   let g:switch_mapping = '\'
 " }}}
+
+" move the block of code sideways
+" todo: replace it with ctrl-arrows
 Plug 'AndrewRadev/sideways.vim'
 " {{{
   nnoremap <Leader>< :SidewaysLeft<CR>
   nnoremap <Leader>> :SidewaysRight<CR>
 " }}}
+
+
+
+
+" CONTINUE FROM HERE
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-abolish'
@@ -591,6 +499,7 @@ Plug 'Shougo/junkfile.vim'
 Plug 'junegunn/vim-peekaboo'
 " {{{
   let g:peekaboo_delay = 400
+  let g:peekaboo_window = "vert bo 80new"
 " }}}
 Plug 'mileszs/ack.vim'
 Plug 'mbbill/undotree'
@@ -1040,11 +949,8 @@ nmap f <Plug>(incsearch-stay)
 " ?
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
-noremap f :BLines<CR>
-noremap <C-f> :execute 'Ag ' . input('Ag/')<CR>
 
-
-
+" utility function: generate a Guid
 function! Guid()
 python << EOF
 import uuid, vim
@@ -1052,7 +958,6 @@ vim.command("normal i" + str(uuid.uuid4()) )
 EOF
 endfunction
 
-"imap <C-x><C-g> :call Guid()<CR>
 
 " jumplist navigation with gn(next, similar to C-o), gp(prev, similar to C-i)
 nnoremap <C-i> <C-i>
