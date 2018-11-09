@@ -126,7 +126,26 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --tern-completer --cl
   let g:ycm_key_invoke_completion = '<c-j>'
   let g:ycm_complete_in_strings = 1
 " }}}
-
+" " configure tags - add additional tags here or comment out not-used ones
+" set tags+=~/.vim/tags/cpp
+" set tags+=~/.vim/tags/gl
+" set tags+=~/.vim/tags/sdl
+" set tags+=~/.vim/tags/qt4
+" " build tags of your own project with Ctrl-F12
+" map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+"
+" " OmniCppComplete
+" let OmniCpp_NamespaceSearch = 1
+" let OmniCpp_GlobalScopeSearch = 1
+" let OmniCpp_ShowAccess = 1
+" let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+" let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+" let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+" let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+" let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" " automatically open and close the popup menu / preview window
+" au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" set completeopt=menuone,menu,longest,preview
 
 " File Navigation
 " ====================================================================
@@ -942,8 +961,8 @@ endfunction
 
 
 " quickfix commands
-function! ToggleList(bufname, pfx)
-  let buflist = GetBufferList()
+function! Togglelist(bufname, pfx)
+  let buflist = getbufferlist()
   for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
     if bufwinnr(bufnum) != -1
       exec(a:pfx.'close')
@@ -951,8 +970,8 @@ function! ToggleList(bufname, pfx)
     endif
   endfor
   if a:pfx == 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo "Location List is Empty."
+      echohl errormsg
+      echo "location list is empty."
       return
   endif
   let winnr = winnr()
@@ -992,3 +1011,17 @@ endfunction
 nnoremap <C-i> <C-i>
 nnoremap gp <C-o>
 nnoremap gn <C-i>
+
+
+
+
+nmap <S-J> Vj
+vmap <S-J> j
+nmap <S-K> Vk
+vmap <S-K> k
+
+
+" copy to the clipboard
+vmap <C-c> "+y
+" paste from the clipboard
+nmap <C-v> "+p
