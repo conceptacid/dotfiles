@@ -7,7 +7,7 @@ let s:darwin = has('mac')
 let g:python_host_prog='/usr/bin/python2'
 let g:mapleader = "\<Space>"
 let g:ycm_server_python_interpreter='/usr/bin/python2'
-
+let g:ycm_global_ycm_extra_conf = '~/ycm_extra_conf.py'
 " ===================================================================
 " Autoinstall vim-plug
 " ===================================================================
@@ -66,6 +66,35 @@ Plug 'junegunn/seoul256.vim'
 " Go support
 Plug 'fatih/vim-go'
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+
+" visualizations of markers
+Plug 'kshenoy/vim-signature'
+" {{{
+  let g:SignatureMarkerTextHL = 'Typedef'
+  let g:SignatureMap = {
+    \ 'Leader'             :  "m",
+    \ 'PlaceNextMark'      :  "m,",
+    \ 'ToggleMarkAtLine'   :  "m.",
+    \ 'PurgeMarksAtLine'   :  "m-",
+    \ 'DeleteMark'         :  "dm",
+    \ 'PurgeMarks'         :  "m<Space>",
+    \ 'PurgeMarkers'       :  "m<BS>",
+    \ 'GotoNextLineAlpha'  :  "",
+    \ 'GotoPrevLineAlpha'  :  "",
+    \ 'GotoNextSpotAlpha'  :  "",
+    \ 'GotoPrevSpotAlpha'  :  "",
+    \ 'GotoNextLineByPos'  :  "]'",
+    \ 'GotoPrevLineByPos'  :  "['",
+    \ 'GotoNextSpotByPos'  :  "]`",
+    \ 'GotoPrevSpotByPos'  :  "[`",
+    \ 'GotoNextMarker'     :  "[+",
+    \ 'GotoPrevMarker'     :  "[-",
+    \ 'GotoNextMarkerAny'  :  "]=",
+    \ 'GotoPrevMarkerAny'  :  "[=",
+    \ 'ListLocalMarks'     :  "m/",
+    \ 'ListLocalMarkers'   :  "m?"
+    \ }
+" }}}
 
 " automatically adjusts shiftwidth and expandtabs
 Plug 'tpope/vim-sleuth'
@@ -136,8 +165,8 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>. :AgIn 
-  noremap f :BLines<CR>
-  noremap <C-f> :execute 'Ag ' . input('Ag/')<CR>
+  nnoremap <C-f> :BLines<CR>
+  nnoremap <silent> <leader>f :execute 'Ag ' . input('Ag/')<CR>
 
 
   nnoremap <silent> K :call SearchWordWithAg()<CR>
@@ -194,10 +223,10 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 
-" disable clever-f, we use fuzzy search on f key and easy motion instead
-" Plug 'rhysd/clever-f.vim'
+" use f and F to find characters on the current line
+Plug 'rhysd/clever-f.vim'
 " {{{
-"  let g:clever_f_across_no_line = 1
+  let g:clever_f_across_no_line = 1
 " }}}
 
 " Text Manipulation
@@ -842,11 +871,11 @@ augroup END
 " }}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
 imap jj <Esc>
+imap jk <Esc>
 imap <A-h> <C-O>h
 imap <A-j> <C-O>j
 imap <A-k> <C-O>k
 imap <A-l> <C-O>l
-let g:ycm_global_ycm_extra_conf = '~/ycm_extra_conf.py'
 
 " Reload the buffer on reload command
 command! Reload edit!
@@ -942,7 +971,7 @@ nmap <A-q> :call ToggleList("Quickfix List", 'c')<CR>
 
 nmap / <Plug>(incsearch-forward)
 nmap ? <Plug>(incsearch-backward)
-nmap f <Plug>(incsearch-stay)
+" nmap f <Plug>(incsearch-stay)
 
 
 " always use n to search forward and N to search backward, regardless of / or
