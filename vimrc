@@ -176,7 +176,6 @@ Plug 'scrooloose/nerdtree'
 " Fuzzy Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" {{{
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
   nnoremap <silent> <leader><space> :Files<CR>
@@ -219,7 +218,6 @@ Plug 'junegunn/fzf.vim'
     call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
   endfunction
   command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
-" }}}
 
 " global search and replace plugin
 " This plugin is obsolete, use the ag to feed quickfix and then use cdo to
@@ -231,21 +229,17 @@ Plug 'junegunn/fzf.vim'
 
 " most-recently used files and directories
 Plug 'Shougo/neomru.vim'
-" {{{
   let g:neomru#file_mru_path = $HOME . '/.nvim/cache/neomru/file'
   let g:neomru#directory_mru_path = $HOME . '/.nvim/cache/neomru/directory'
-" }}}
 
 " Text Navigation
 " ====================================================================
 Plug 'Lokaltog/vim-easymotion'
-" {{{
   let g:EasyMotion_do_mapping = 0
   let g:EasyMotion_smartcase = 1
   let g:EasyMotion_off_screen_search = 0
   nmap ; <Plug>(easymotion-s)
   nmap <leader>; <Plug>(incsearch-easymotion-stay)
-" }}}
 
 " incremental search
 Plug 'haya14busa/incsearch.vim'
@@ -253,9 +247,7 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 
 " use f and F to find characters on the current line
 Plug 'rhysd/clever-f.vim'
-" {{{
   let g:clever_f_across_no_line = 1
-" }}}
 
 " Text Manipulation
 " ====================================================================
@@ -307,24 +299,22 @@ Plug 'AndrewRadev/sideways.vim'
 
 
 " CONTINUE FROM HERE
+" adds end operators in different languages
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-abolish'
 
-" Text Objects
-" ====================================================================
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-indent'
-Plug 'nelstrom/vim-textobj-rubyblock'
+" create your own text objects - NOT NEEDED
+" Plug 'kana/vim-textobj-user'
+" Plug 'kana/vim-textobj-indent'
 
-" Languages
-" ====================================================================
+
+" switch between header and cpp files
 Plug 'derekwyatt/vim-fswitch'
-" {{{
-  nnoremap <leader>gh :FSHere<CR>
-" }}}
+nnoremap <leader>gh :FSHere<CR>
+ 
+ 
+ 
+" syntax checking for many languages
 Plug 'scrooloose/syntastic'
-" {{{
   let g:syntastic_enable_signs          = 1
   let g:syntastic_enable_highlighting   = 1
   let g:syntastic_cpp_check_header      = 1
@@ -357,229 +347,132 @@ Plug 'scrooloose/syntastic'
     autocmd FileType ruby nnoremap <leader>` :SyntasticCheck rubocop<CR>
     autocmd FileType ruby nnoremap <leader>! :call RubocopAutoCorrection()<CR>
   augroup END
-" }}}
+
+
+" emmet abbreviations for html, css
 Plug 'mattn/emmet-vim'
-" {{{
   let g:user_emmet_expandabbr_key = '<c-e>'
-" }}}
+
+" always highlight enclosing tags
 Plug 'Valloric/MatchTagAlways'
+
+" a set of mappings for HTML, XML, PHP, ASP, eRuby, JSP, and more (formerly allml)
 Plug 'tpope/vim-ragtag'
-" {{{
-  let g:ragtag_global_maps = 1
-" }}}
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-bundler'
-Plug 'yaymukund/vim-rabl'
-Plug 'tpope/vim-liquid'
+let g:ragtag_global_maps = 1
+ 
+" must have mappings for working with JSON in Vim:
+" -    aj provides a text object for the outermost JSON object, array, string, number, or keyword.
+" -    gqaj "pretty prints" (wraps/indents/sorts keys/otherwise cleans up) the JSON construct under the cursor.
+" -    gwaj takes the JSON object on the clipboard and extends it into the JSON object under the cursor.
+" -    ij variants that target innermost rather than outermost JSON construct.
 Plug 'tpope/vim-jdaddy'
-Plug 'Shougo/context_filetype.vim'
+
+" Context filetype library for Vim script 
+" Plug 'Shougo/context_filetype.vim'
+
+" omni-complete and syntax checker for html5
 Plug 'othree/html5.vim'
-Plug 'othree/yajs.vim'
-Plug 'othree/javascript-libraries-syntax.vim'
-" {{{
-  let g:used_javascript_libs = 'jquery'
-" }}}
-Plug 'gavocanov/vim-js-indent'
-Plug 'ap/vim-css-color'
-Plug 'jimenezrick/vimerl'
-" {{{
-  let erlang_show_errors = 0
-" }}}
-Plug 'elixir-lang/vim-elixir'
+
+" yet another javascript syntax
+" Plug 'othree/yajs.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
+" let g:used_javascript_libs = 'jquery'
+" Plug 'gavocanov/vim-js-indent'
+" Plug 'ap/vim-css-color'
+" vim jsx syntax
+" Plug 'mxw/vim-jsx'
+
+" a nicer python indentation style
 Plug 'hynek/vim-python-pep8-indent'
+
+" vim octave
 Plug 'jvirtanen/vim-octave'
-Plug 'lervag/vimtex'
-" {{{
-  let g:vimtex_view_method = 'zathura'
-  augroup latex
-    autocmd!
-    autocmd FileType tex nnoremap <buffer><F5> :VimtexCompile<CR>
-    autocmd FileType tex map <silent> <buffer><F8> :call vimtex#latexmk#errors_open(0)<CR>
-  augroup END
-" }}}
-Plug 'StanAngeloff/php.vim'
-Plug 'qbbr/vim-twig'
-Plug 'mxw/vim-jsx'
+
+" a modern plugin for editin latex files
+" Plug 'lervag/vimtex'
+"   let g:vimtex_view_method = 'zathura'
+"   augroup latex
+"     autocmd!
+"     autocmd FileType tex nnoremap <buffer><F5> :VimtexCompile<CR>
+"     autocmd FileType tex map <silent> <buffer><F8> :call vimtex#latexmk#errors_open(0)<CR>
+"   augroup END
+
+
+" vim dockerfile syntax
 Plug 'ekalinin/Dockerfile.vim'
 
-" Git
-" ====================================================================
-Plug 'tpope/vim-fugitive'
-" {{{
-  " Fix broken syntax highlight in gitcommit files
-  " (https://github.com/tpope/vim-git/issues/12)
-  let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
-
-  nnoremap <silent> <leader>gs :Gstatus<CR>
-  nnoremap <silent> <leader>gd :Gdiff<CR>
-  nnoremap <silent> <leader>gc :Gcommit<CR>
-  nnoremap <silent> <leader>gb :Gblame<CR>
-  nnoremap <silent> <leader>ge :Gedit<CR>
-  nnoremap <silent> <leader>gE :Gedit<space>
-  nnoremap <silent> <leader>gr :Gread<CR>
-  nnoremap <silent> <leader>gR :Gread<space>
-  nnoremap <silent> <leader>gw :Gwrite<CR>
-  nnoremap <silent> <leader>gW :Gwrite!<CR>
-  nnoremap <silent> <leader>gq :Gwq<CR>
-  nnoremap <silent> <leader>gQ :Gwq!<CR>
-
-  function! ReviewLastCommit()
-    if exists('b:git_dir')
-      Gtabedit HEAD^{}
-      nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
-    else
-      echo 'No git a git repository:' expand('%:p')
-    endif
-  endfunction
-  nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
-
-  augroup fugitiveSettings
-    autocmd!
-    autocmd FileType gitcommit setlocal nolist
-    autocmd BufReadPost fugitive://* setlocal bufhidden=delete
-  augroup END
-" }}}
-Plug 'airblade/vim-gitgutter'
-" {{{
-  let g:gitgutter_map_keys = 0
-  let g:gitgutter_max_signs = 200
-  let g:gitgutter_realtime = 1
-  let g:gitgutter_eager = 1
-  let g:gitgutter_sign_removed = '–'
-  let g:gitgutter_diff_args = '--ignore-space-at-eol'
-  nmap <silent> ]h :GitGutterNextHunk<CR>
-  nmap <silent> [h :GitGutterPrevHunk<CR>
-  nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
-  nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
-  nnoremap cog :GitGutterToggle<CR>
-  nnoremap <Leader>gt :GitGutterAll<CR>
-" }}}
-
-
-" Utility
-" ====================================================================
+" automatic keyboard switch
 Plug 'lyokha/vim-xkbswitch'
-" {{{
-  let g:XkbSwitchEnabled = 1
-  let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
-  let g:XkbSwitchNLayout = 'us'
-  let g:XkbSwitchILayout = 'us'
+let g:XkbSwitchEnabled = 1
+let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
+let g:XkbSwitchNLayout = 'us'
+let g:XkbSwitchILayout = 'us'
+function! RestoreKeyboardLayout(key)
+  call system("xkb-switch -s 'us'")
+  execute 'normal! ' . a:key
+endfunction
+nnoremap <silent> р :call RestoreKeyboardLayout('h')<CR>
+nnoremap <silent> о :call RestoreKeyboardLayout('j')<CR>
+nnoremap <silent> л :call RestoreKeyboardLayout('k')<CR>
+nnoremap <silent> д :call RestoreKeyboardLayout('l')<CR>
 
-  function! RestoreKeyboardLayout(key)
-    call system("xkb-switch -s 'us'")
-    execute 'normal! ' . a:key
-  endfunction
-
-  nnoremap <silent> р :call RestoreKeyboardLayout('h')<CR>
-  nnoremap <silent> о :call RestoreKeyboardLayout('j')<CR>
-  nnoremap <silent> л :call RestoreKeyboardLayout('k')<CR>
-  nnoremap <silent> д :call RestoreKeyboardLayout('l')<CR>
-" }}}
+" automatically generates tag files for the project
 Plug 'ludovicchabant/vim-gutentags'
-" {{{
-  let g:gutentags_ctags_exclude = [
-      \ '*.min.js',
-      \ '*html*',
-      \ 'jquery*.js',
-      \ '*/vendor/*',
-      \ '*/node_modules/*',
-      \ '*/python2.7/*',
-      \ '*/migrate/*.rb'
-      \ ]
-  let g:gutentags_generate_on_missing = 0
-  let g:gutentags_generate_on_write = 0
-  let g:gutentags_generate_on_new = 0
-  nnoremap <leader>t! :GutentagsUpdate!<CR>
-" }}}
-Plug 'tpope/vim-characterize'
+let g:gutentags_ctags_exclude = [
+    \ '*.min.js',
+    \ '*html*',
+    \ 'jquery*.js',
+    \ '*/vendor/*',
+    \ '*/node_modules/*',
+    \ '*/python2.7/*',
+    \ '*/migrate/*.rb'
+    \ ]
+let g:gutentags_generate_on_missing = 0
+let g:gutentags_generate_on_write = 0
+let g:gutentags_generate_on_new = 0
+nnoremap <leader>t! :GutentagsUpdate!<CR>
+
+
+" pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
-" {{{
-  nnoremap coe :set <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
-" }}}
+nnoremap coe :set <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
+
+" syntactic sugar for linux commands, e.g. :Locate, :Find, etc..
+" https://github.com/tpope/vim-eunuch
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-projectionist'
-" {{{
-  let g:projectionist_heuristics = {}
 
-  " Elixir Mix
-  let g:projectionist_heuristics['mix.exs'] = {
-      \   'lib/*.ex': {
-      \     'alternate': 'test/{}_test.exs',
-      \     'type': 'lib'
-      \   },
-      \   'test/*_test.exs': {
-      \     'alternate': 'lib/{}.ex',
-      \     'type': 'test'
-      \   },
-      \   'config/*.exs': {
-      \     'type': 'config'
-      \   },
-      \   'mix.exs': {
-      \     'type': 'mix'
-      \   },
-      \   '*_test.exs': {'dispatch': 'mix test {file}'},
-      \   '*': {
-      \     'dispatch': 'mix test',
-      \     'console': 'iex'
-      \   }
-      \ }
-" }}}
+" async build and test dispatcher, see make commands
 Plug 'tpope/vim-dispatch'
-Plug 'janko-m/vim-test'
-" {{{
-  function! TerminalSplitStrategy(cmd) abort
-    tabnew | call termopen(a:cmd) | startinsert
-  endfunction
-  let g:test#custom_strategies = get(g:, 'test#custom_strategies', {})
-  let g:test#custom_strategies.terminal_split = function('TerminalSplitStrategy')
-  let test#strategy = 'terminal_split'
 
-  nnoremap <silent> <leader>rr :TestFile<CR>
-  nnoremap <silent> <leader>rf :TestNearest<CR>
-  nnoremap <silent> <leader>rs :TestSuite<CR>
-  nnoremap <silent> <leader>ra :TestLast<CR>
-  nnoremap <silent> <leader>ro :TestVisit<CR>
-" }}}
+" opens browser search
 Plug 'tyru/open-browser.vim'
-" {{{
-  let g:netrw_nogx = 1
-  vmap gx <Plug>(openbrowser-smart-search)
-  nmap gx <Plug>(openbrowser-search)
-" }}}
+let g:netrw_nogx = 1
+vmap gx <Plug>(openbrowser-smart-search)
+nmap gx <Plug>(openbrowser-search)
+
+" create a temp file for memo, testing...
 Plug 'Shougo/junkfile.vim'
-" {{{
-  nnoremap <leader>jo :JunkfileOpen 
-  let g:junkfile#directory = $HOME . '/.nvim/cache/junkfile'
-" }}}
+nnoremap <leader>jo :JunkfileOpen 
+let g:junkfile#directory = $HOME . '/.nvim/cache/junkfile'
+
+" displays the register values in floating window on the right
 Plug 'junegunn/vim-peekaboo'
-" {{{
-  let g:peekaboo_delay = 400
-  let g:peekaboo_window = "vert bo 80new"
-" }}}
+let g:peekaboo_delay = 400
+let g:peekaboo_window = "vert bo 80new"
+
+" ack grep ??? todo: check why do we need that if we have ag
 Plug 'mileszs/ack.vim'
+
+" undo tree
 Plug 'mbbill/undotree'
-" {{{
-  set undofile
-  " Auto create undodir if not exists
-  let undodir = expand($HOME . '/.nvim/cache/undodir')
-  if !isdirectory(undodir)
-    call mkdir(undodir, 'p')
-  endif
-  let &undodir = undodir
-
-  nnoremap <leader>U :UndotreeToggle<CR>
-" }}}
-
-" Misc
-" ====================================================================
-Plug 'itchyny/calendar.vim', { 'on': 'Calendar' }
-" {{{
-  let g:calendar_date_month_name = 1
-" }}}
-call plug#end() " Plugins initialization finished {{{
-" }}}
+set undofile
+" Auto create undodir if not exists
+let undodir = expand($HOME . '/.nvim/cache/undodir')
+if !isdirectory(undodir)
+  call mkdir(undodir, 'p')
+endif
+let &undodir = undodir
+nnoremap <leader>U :UndotreeToggle<CR>
 
 " General settings {{{
 " ====================================================================
@@ -767,26 +660,32 @@ function! JumpOrOpenNewSplit(key, cmd, fzf) " {{{
   endif
 endfunction " }}}
 
+" switch that off, use Alt for text moving
 " windows navigation with Alt (works also in terminal mode!)
-:tnoremap <A-h> <C-\><C-n><C-w>h
-:tnoremap <A-j> <C-\><C-n><C-w>j
-:tnoremap <A-k> <C-\><C-n><C-w>k
-:tnoremap <A-l> <C-\><C-n><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
+" :tnoremap <A-h> <C-\><C-n><C-w>h
+" :tnoremap <A-j> <C-\><C-n><C-w>j
+" :tnoremap <A-k> <C-\><C-n><C-w>k
+" :tnoremap <A-l> <C-\><C-n><C-w>l
+" :nnoremap <A-h> <C-w>h
+" :nnoremap <A-j> <C-w>j
+" :nnoremap <A-k> <C-w>k
+" :nnoremap <A-l> <C-w>l
 
 nnoremap <silent> <Leader>hh :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 0)<CR>
 nnoremap <silent> <Leader>ll :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 0)<CR>
 nnoremap <silent> <Leader>kk :call JumpOrOpenNewSplit('k', ':leftabove split', 0)<CR>
 nnoremap <silent> <Leader>jj :call JumpOrOpenNewSplit('j', ':rightbelow split', 0)<CR>
 
-" Same as above, except it opens unite at the end
-nnoremap <silent> <Leader>h<Space> :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 1)<CR>
-nnoremap <silent> <Leader>l<Space> :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 1)<CR>
-nnoremap <silent> <Leader>k<Space> :call JumpOrOpenNewSplit('k', ':leftabove split', 1)<CR>
-nnoremap <silent> <Leader>j<Space> :call JumpOrOpenNewSplit('j', ':rightbelow split', 1)<CR>
+nnoremap <silent> <C-w>h :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 0)<CR>
+nnoremap <silent> <C-w>l :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 0)<CR>
+nnoremap <silent> <C-w>k :call JumpOrOpenNewSplit('k', ':leftabove split', 0)<CR>
+nnoremap <silent> <C-w>j :call JumpOrOpenNewSplit('j', ':rightbelow split', 0)<CR>
+
+" " Same as above, except it opens unite at the end
+" nnoremap <silent> <Leader>h<Space> :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 1)<CR>
+" nnoremap <silent> <Leader>l<Space> :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 1)<CR>
+" nnoremap <silent> <Leader>k<Space> :call JumpOrOpenNewSplit('k', ':leftabove split', 1)<CR>
+" nnoremap <silent> <Leader>j<Space> :call JumpOrOpenNewSplit('j', ':rightbelow split', 1)<CR>
 
 " Remove trailing whitespaces in current buffer
 nnoremap <Leader><BS>s :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
