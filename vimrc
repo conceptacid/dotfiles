@@ -256,10 +256,8 @@ Plug 'tpope/vim-surround'
 
 " table alignments, see the doc
 Plug 'junegunn/vim-easy-align'
-" {{{
-  let g:easy_align_ignore_comment = 0 " align comments
-  vnoremap <silent> <Enter> :EasyAlign<cr>
-" }}}
+" let g:easy_align_ignore_comment = 0 " align comments
+" vnoremap <silent> <Enter> :EasyAlign<cr>
 
 " comments management
 " gcc - toggle comments, but also see the docs for more keybindings 
@@ -923,7 +921,19 @@ nnoremap gp <C-o>
 nnoremap gn <C-i>
 
 
-
+" ----------------------------------------------------------------------------
+" Moving lines
+" ----------------------------------------------------------------------------
+nnoremap <silent> <C-k> :move-2<cr>
+nnoremap <silent> <C-j> :move+<cr>
+nnoremap <silent> <C-h> <<
+nnoremap <silent> <C-l> >>
+xnoremap <silent> <C-k> :move-2<cr>gv
+xnoremap <silent> <C-j> :move'>+<cr>gv
+xnoremap <silent> <C-h> <gv
+xnoremap <silent> <C-l> >gv
+xnoremap < <gv
+xnoremap > >gv
 
 nmap <S-J> Vj
 vmap <S-J> j
