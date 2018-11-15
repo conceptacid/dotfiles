@@ -473,6 +473,8 @@ if !isdirectory(undodir)
 endif
 let &undodir = undodir
 nnoremap <leader>U :UndotreeToggle<CR>
+call plug#end() " Plugins initialization finished {{{
+" }}}
 
 " General settings {{{
 " ====================================================================
@@ -933,3 +935,4 @@ vmap <S-K> k
 vmap <C-c> "+y
 " paste from the clipboard
 nmap <C-v> "+p
+
